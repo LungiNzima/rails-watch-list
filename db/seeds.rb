@@ -13,16 +13,13 @@
 
 url = 'https://tmdb.lewagon.com/movie/top_rated'
 response = URI.open(url).read
-results = JSON.parse.response['results']
+results = JSON.parse(response)['results']
 
 results.each do |result|
-  puts result['title']
+ p movie = Movie.new
+ p movie.title = result['title']
+ p movie.overview = result['overview']
+ p movie.poster_url = result['poster_path']
+ p movie.rating = result['vote_average']
+  movie.save
 end
-
-#results.each do |result|
- # p movie = Movie.new
- # p movie.title = result['title']
- # p movie.overview = result['overview']
- # p movie,poster_url = result['vote_average']
- # movie.save
-# end

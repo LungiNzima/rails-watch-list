@@ -3,18 +3,21 @@ class ListsController < ApplicationController
 
   def index
     @lists = List.all
+    @list = List.new
   end
 
-  def show; end
-
-  def new
-   @list = List.new
+  def show
+  @bookmark = Bookmark.new
   end
 
   def create
+    @lists = List.all
     @list = List.new(list_params)
-    @list.save
-    redirect_to lists_path(@lists)
+    if @list.save
+      redirect_to lists_path(@lists)
+    else
+      render "index"
+    end
   end
 
   def destroy
