@@ -10,43 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_11_045816) do
+ActiveRecord::Schema.define(version: 2022_06_11_072045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bookmarks", force: :cascade do |t|
-    t.text "comment"
-    t.bigint "movies_id", null: false
-    t.bigint "list_id", null: false
+    t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "movie_id", null: false
+    t.bigint "list_id", null: false
     t.index ["list_id"], name: "index_bookmarks_on_list_id"
-    t.index ["movies_id"], name: "index_bookmarks_on_movies_id"
+    t.index ["movie_id"], name: "index_bookmarks_on_movie_id"
   end
 
   create_table "lists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "bookmark_id"
-    t.index ["bookmark_id"], name: "index_lists_on_bookmark_id"
   end
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
-    t.text "overview"
-    t.string "poster"
-    t.string "url"
+    t.string "overview"
+    t.string "poster_url"
     t.integer "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "bookmark_id"
-    t.index ["bookmark_id"], name: "index_movies_on_bookmark_id"
   end
 
   add_foreign_key "bookmarks", "lists"
-  add_foreign_key "bookmarks", "movies", column: "movies_id"
-  add_foreign_key "lists", "bookmarks"
-  add_foreign_key "movies", "bookmarks"
+  add_foreign_key "bookmarks", "movies"
 end

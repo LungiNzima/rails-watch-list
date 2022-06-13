@@ -1,0 +1,6 @@
+
+<h1><%= @list.name %></h1>
+
+<%= link_to 'back', lists_path%>
+<%= link_to 'delete', list_path(@list), method: :delete,
+data: { confirm: 'Are you sure?' } %>
