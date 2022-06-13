@@ -1,15 +1,18 @@
-<h1>My Movie Lists</h1>
+<div class="container">
+  <h1>My Movie Lists</h1>
 
-<ul>
-  <% @lists.each do |list| %>
-    <h2><%= link_to list.name, list_path(list) %></h2>
-    <p><%= link_to 'Delete', list_path(list), method: :delete, data:
-    { confirm: "Are you sure you want to delete list?" }%></p>
+  <ul>
+    <% @lists.each do |list| %>
+      <h2><%= link_to list.name, list_path(list) %></h2>
+      <p><%= link_to 'Delete', list_path(list), method: :delete, data:
+      { confirm: "Are you sure you want to delete list?" }%></p>
+   <% end %>
+  </ul>
+
+  <p> Create a New List </p>
+  <%= simple_form_for [ @list ] do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.submit "Create list", class: "btn btn-primary" %>
   <% end %>
-</ul>
-
-<%= simple_form_for [ @list ] do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit "Create list", class: "btn btn-primary" %>
-<% end %>
+</div>
